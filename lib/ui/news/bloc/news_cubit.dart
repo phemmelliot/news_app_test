@@ -9,6 +9,7 @@ import 'package:news_app/data/news/model/news_source.dart';
 import 'package:news_app/data/news/repository/news_repository.dart';
 import 'package:news_app/di/modules/news_module/news_module_injector.dart';
 import 'package:news_app/ui/core/news_source_picker/news_source_picker.dart';
+import 'package:news_app/ui/core/toast_helper/toast_helper.dart';
 
 part 'news_cubit.freezed.dart';
 part 'news_state.dart';
@@ -71,8 +72,10 @@ class NewsCubit extends Cubit<NewsState> {
     });
   }
 
-  void fetchNewArticles(String source, bool isGenericTopHeadline) {
-    _newsRepo.fetchNews(source, isGenericTopHeadline);
+  void fetchNewArticles(String source, bool isGenericTopHeadline) async {
+    ToastHelper.showFetching(message: "Fetching articles...");
+    await _newsRepo.fetchNews(source, isGenericTopHeadline);
+    Navigator.pop(Get.context);
   }
 
   void saveArticle(Article article) {

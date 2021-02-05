@@ -78,8 +78,8 @@ class NewsRepositoryImpl extends NewsRepository {
 
   @override
   Future<void> loadArticlesFromCache() async {
-    _newsHiveDao.getCachedArticles();
-    _newsHiveDao.getSavedArticles();
+    await _newsHiveDao.getCachedArticles();
+    await _newsHiveDao.getSavedArticles();
   }
 
   @override

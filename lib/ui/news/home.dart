@@ -244,28 +244,47 @@ class _HomeState extends State<Home> {
   }
 
   Widget _buildSavedNewsPage(BuildContext innerContext, TextEditingController controller, NewsState state) {
+    final savedArticles = state.stateHolder.savedArticles;
     return ListView.separated(
       itemBuilder: (BuildContext context, int index) {
         if (index == 0) {
           return Container(
-              padding: EdgeInsets.only(top: 40, bottom: 10),
-              child: Text(
-                'Saved Articles',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ));
+            padding: EdgeInsets.only(top: 40, bottom: 10),
+            child: Text(
+              'Saved Articles',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          );
         }
-        if (index == state.stateHolder.savedArticles.length + 1) {
+        if (index == savedArticles.length + 1 && savedArticles.isNotEmpty) {
           return SizedBox(
             height: 50,
           );
         }
-        Article article = state.stateHolder.savedArticles[index - 1];
-        return _buildArticleWidget(innerContext, article);
+
+        if (savedArticles.isNotEmpty) {
+          Article article = savedArticles[index - 1];
+          return _buildArticleWidget(innerContext, article);
+        } else {
+          return Container(
+            height: 500,
+            width: Helper.getResponsiveWidth(100, context),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Center(
+                child: Text(
+                  "There are no saved articles yet, click on the favorite icon on articles to save an article",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          );
+        }
       },
-      itemCount: state.stateHolder.savedArticles.length + 2,
+      itemCount: savedArticles.isEmpty ? 1 : savedArticles.length + 2,
       separatorBuilder: (BuildContext context, int index) {
         return Container(
           height: 20,

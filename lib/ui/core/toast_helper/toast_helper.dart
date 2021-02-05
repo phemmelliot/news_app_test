@@ -99,8 +99,7 @@ class ToastHelper {
     );
   }
 
-  static void showFetching(
-      {String title, @required String message, Duration duration = const Duration(milliseconds: 30000)}) {
+  static void showFetching({String title, @required String message, Duration duration = const Duration(seconds: 90)}) {
     Get.snackbar(title, message,
         snackStyle: SnackStyle.FLOATING,
         messageText: Text(
