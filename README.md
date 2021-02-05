@@ -1,6 +1,6 @@
 # news_app
 
-A flutter showcasing an implementation of MVVM architecture with a simple news app making use of newsapi api and provider for state management
+A simple application consuming the newsapi.org API
 
 ## Getting Started
 
