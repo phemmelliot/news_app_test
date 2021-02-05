@@ -92,9 +92,6 @@ class NewsHiveDao {
       await openNewsMetaBox();
     }
 
-    print("Sources from the remote");
-    print(sources.map((e) => e.toJson()));
-
     final newsSourcesMap = Map<String, Map<String, dynamic>>.fromIterable(
       sources.where((NewsSource element) => element != null),
       key: (source) => _getNewsSourceId(source),
@@ -113,8 +110,6 @@ class NewsHiveDao {
 
   Future<void> saveArticle(Article article) async {
     final articleMap = article.toJson();
-    print("This is supposed to save the article");
-    print(articleMap);
     _savedArticlesBox.put(_getNewsKey(article), articleMap);
     _articlesBox.put(_getNewsKey(article), articleMap);
     getCachedArticles();
@@ -133,8 +128,7 @@ class NewsHiveDao {
     if (_articlesBox == null) {
       await openArticlesBox();
     }
-    print("Getting cached news");
-    print(_articlesBox.values.toList());
+
     List<Article> articles = List<Article>.from(_articlesBox.values.toList().map((e) => Article.fromJson(e)));
 
     _articlesController.add(articles);
@@ -146,8 +140,6 @@ class NewsHiveDao {
       await openNewsMetaBox();
     }
 
-    print("This is the news sources");
-    print(_newsMetaBox.get(newsSourcesKey)?.values?.toList());
     List<NewsSource> sources = [];
     if (_newsMetaBox.get(newsSourcesKey) != null) {
       sources = List<NewsSource>.from(

@@ -4,6 +4,12 @@ import 'package:get/get.dart';
 class ToastHelper {
   ToastHelper();
 
+  static Future<void> dismiss() async {
+    if (Get.isSnackbarOpen) {
+      Get.back();
+    }
+  }
+
   static void showToast(
       {String title, @required String message, Duration duration = const Duration(milliseconds: 3500)}) {
     Get.snackbar(
@@ -116,6 +122,7 @@ class ToastHelper {
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.green,
         showProgressIndicator: true,
-        progressIndicatorValueColor: AlwaysStoppedAnimation(Colors.white));
+        progressIndicatorValueColor: AlwaysStoppedAnimation(Colors.white),
+        margin: EdgeInsets.only(bottom: 40));
   }
 }

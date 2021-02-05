@@ -131,7 +131,6 @@ class _State extends State<_Picker> {
   }
 
   Widget _newsSourceItem({callBackVoid onTap, NewsSource newsSource}) {
-    print(newsSource.toJson());
     return Container(
         margin: EdgeInsets.only(bottom: 1),
         child: InkWell(

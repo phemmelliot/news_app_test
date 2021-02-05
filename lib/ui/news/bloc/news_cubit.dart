@@ -68,14 +68,19 @@ class NewsCubit extends Cubit<NewsState> {
 
   void fetchInBackground() {
     Timer.periodic(Duration(minutes: 15), (timer) async {
-      await _newsRepo.fetchNews(null, false, isFetchingBackground: true);
+      String url = state.stateHolder.currentNewsSource.url;
+      fetchNewArticles(url, url == null);
     });
   }
 
   void fetchNewArticles(String source, bool isGenericTopHeadline) async {
-    ToastHelper.showFetching(message: "Fetching articles...");
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ToastHelper.showFetching(message: "Fetching new articles...");
+    });
     await _newsRepo.fetchNews(source, isGenericTopHeadline);
-    Navigator.pop(Get.context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ToastHelper.dismiss();
+    });
   }
 
   void saveArticle(Article article) {

@@ -17,7 +17,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   List<Article> articles = [];
   List<NewsSource> newsSources = [];
   int selectedIndex = 0;
@@ -302,6 +302,12 @@ class _HomeState extends State<Home> {
       default:
         return _buildNewsExplore(innerContext, controller, state);
     }
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
   }
 
   @override
